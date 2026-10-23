@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17365d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Travel Planner">
+<meta name="description" content="Travel Planner — lịch trình, địa điểm, vé máy bay và ngân sách chuyến đi.">
+<title>Travel Planner — Đà Nẵng · Huế · Hội An</title>
+<style>
+:root{--navy:#17365d;--blue:#2864a5;--sky:#eaf3fb;--bg:#f5f7fb;--text:#172334;--muted:#66758a;--line:#dce4ee;--green:#e4f4e8;--amber:#fff2d2;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(120deg,#17365d,#2864a5);color:white;padding:24px max(20px,calc((100vw - 1180px)/2));}
+header .eyebrow{opacity:.8;text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700}h1{margin:7px 0;font-size:clamp(24px,4vw,36px)}header p{margin:0;max-width:720px;opacity:.9;line-height:1.5}
+.wrap{max-width:1180px;margin:auto;padding:18px 18px 50px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 18px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 3px 12px #17365d0b}.stat{padding:15px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:23px;margin-top:7px}.stat small{color:var(--muted)}
+.tabs{display:flex;gap:7px;overflow:auto;padding:4px 0 14px}.tab{border:1px solid var(--line);background:white;padding:10px 14px;border-radius:10px;white-space:nowrap;cursor:pointer;font-weight:650;color:#41536a}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.panel{padding:18px;margin-bottom:14px}.panel h2{font-size:18px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px;margin:0 0 16px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:#526276;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #cdd7e3;border-radius:9px;padding:10px 11px;background:white;font:inherit;color:var(--text)}.field textarea{min-height:76px;resize:vertical}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.btn{border:0;background:var(--blue);color:white;padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer}.btn.secondary{background:#edf2f8;color:#27415f;border:1px solid var(--line)}.btn.danger{background:#fff0ef;color:#a32d25;border:1px solid #f2c8c4}
+.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:680px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:11px 9px;font-size:13px;vertical-align:top}th{background:#f5f8fc;color:#526276;font-size:11px;text-transform:uppercase;letter-spacing:.04em}td input,td select{width:100%;min-width:95px;border:1px solid #d7e0eb;border-radius:7px;padding:7px;font:inherit}td .mini{padding:6px 8px;font-size:11px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--sky);color:#28598b;font-size:11px;font-weight:750}.badge.green{background:var(--green);color:#236b3c}.badge.amber{background:var(--amber);color:#805800}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.place{border:1px solid var(--line);border-radius:12px;padding:14px}.place h3{font-size:15px;margin:8px 0 5px}.place p{font-size:12px;color:var(--muted);line-height:1.5}.muted{color:var(--muted)}.notice{padding:12px 14px;border-radius:10px;background:#f2f7fc;border:1px solid #d9e8f7;color:#3e5874;font-size:13px;line-height:1.5;margin-top:12px}.hidden{display:none!important}.two{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}.footer{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}
+
+.header-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}.header-btn{background:#fff;color:#17365d;min-height:42px}.header-note{font-size:12px;opacity:.8}.mobile-nav{display:none}
+button,input,select,textarea{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f5b942;outline-offset:2px}
+
+.cloud-panel{max-width:1180px;margin:14px auto 0;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 3px 12px #17365d0b}.cloud-copy{display:flex;flex-direction:column;gap:5px;min-width:200px}.cloud-copy strong{font-size:14px}.cloud-copy span{font-size:12px;line-height:1.45;color:var(--muted)}.cloud-login,.cloud-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cloud-login label{font-size:12px;font-weight:700;color:var(--muted)}.cloud-login input{min-width:210px;border:1px solid #cdd7e3;border-radius:9px;padding:10px 11px;font:inherit}.cloud-actions span{font-size:12px;color:var(--muted)}
+body.viewer .editor-only,body.viewer .field,body.viewer .actions,body.viewer .btn.danger,body.viewer #overview .two > .panel:first-child{display:none!important}body.viewer .view h2{margin-bottom:8px}body.viewer .view .panel{padding:16px}body.viewer .view .sub{margin-bottom:8px}body.viewer .header-actions .header-note{display:block}body.viewer .mobile-nav{grid-template-columns:repeat(5,1fr)}body.viewer .cloud-login{display:none}
+@media(max-width:760px){.cloud-panel{margin:10px 10px 0;padding:12px;display:block}.cloud-copy{margin-bottom:10px}.cloud-login{display:grid;grid-template-columns:1fr}.cloud-login label{display:none}.cloud-login input{min-width:0;width:100%;font-size:16px;min-height:44px}.cloud-login .btn{width:100%}.cloud-actions{display:grid;grid-template-columns:1fr 1fr}.cloud-actions span{grid-column:1/-1}.cloud-actions button{width:100%}body.viewer .cloud-panel{margin-bottom:8px}}
+
+@media(max-width:760px){
+ body{font-size:15px;padding-bottom:78px}header{padding:20px 16px 22px}header p{font-size:14px}.wrap{padding:12px 12px 28px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:12px;border-radius:13px}.stat .label{font-size:11px}.stat strong{font-size:19px;overflow-wrap:anywhere}.stat small{font-size:10px}.tabs{gap:6px;padding:2px 0 12px}.tab{padding:10px 12px;font-size:13px}.panel{padding:13px;border-radius:13px;margin-bottom:11px}.panel h2{font-size:17px}.sub{font-size:12px;margin-bottom:13px}.grid,.cards,.two{grid-template-columns:minmax(0,1fr);gap:10px}.field input,.field select,.field textarea{font-size:16px;min-height:44px;padding:11px}.field textarea{min-height:84px}.actions{gap:8px}.btn{min-height:42px;padding:10px 12px;font-size:13px}.tablewrap{overflow:visible}table{min-width:0;width:100%;display:block}thead{display:none}tbody{display:grid;gap:10px}tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:white;padding:6px}tbody td{display:block;border:0;padding:8px 7px;min-width:0;overflow-wrap:anywhere;font-size:12px}tbody td:first-child{grid-column:1/-1;border-bottom:1px solid var(--line);font-size:13px}tbody td:last-child{grid-column:1/-1;text-align:right}td input,td select{min-width:0;font-size:14px;min-height:38px}td a{overflow-wrap:anywhere}.notice{font-size:12px}.place{padding:12px}.footer{padding:0 8px 12px;font-size:11px}.mobile-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;z-index:50;left:0;right:0;bottom:0;padding:7px 4px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -4px 18px #17365d12;backdrop-filter:blur(12px)}.mobile-tab{border:0;background:transparent;color:#65758a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:700;padding:4px 2px;min-height:49px}.mobile-tab span{font-size:20px;line-height:1}.mobile-tab.active{color:#17365d}.header-actions{margin-top:14px}.header-btn{width:100%}.header-note{font-size:11px}.tablewrap table{margin-bottom:4px}
+}
+
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Travel Planner · Mac quản trị · iPhone xem lịch</div><h1>Travel Planner</h1><p>Mac dùng để thiết lập và cập nhật. iPhone dùng để xem lịch trình, địa điểm, chi phí và phương án dự phòng khi đi du lịch.</p><div class="header-actions"><button class="btn header-btn" id="installHelp">＋ Cách thêm vào màn hình chính</button><span class="header-note" id="modeLabel">Đang khởi tạo ứng dụng…</span></div></header>
+<section class="cloud-panel" id="cloudPanel" aria-label="Đăng nhập và đồng bộ">
+  <div class="cloud-copy"><strong>Đồng bộ dữ liệu</strong><span id="cloudStatus">Đang dùng dữ liệu lưu trên thiết bị này. Cấu hình Supabase để đồng bộ Mac và iPhone.</span></div>
+  <div class="cloud-login" id="cloudLogin"><label for="loginEmail">Email đăng nhập</label><input id="loginEmail" type="email" autocomplete="email" placeholder="ban@example.com"><button class="btn" id="loginBtn">Gửi link đăng nhập</button></div>
+  <div class="cloud-actions hidden" id="cloudActions"><span id="signedInEmail"></span><button class="btn secondary" id="syncNow">Đồng bộ ngay</button><button class="btn secondary" id="logoutBtn">Đăng xuất</button></div>
+</section>
+<main class="wrap">
+<section class="stats">
+<div class="stat"><div class="label">Ngân sách dự kiến</div><strong id="statBudget">0 ₫</strong><small>Chi phí đã nhập</small></div>
+<div class="stat"><div class="label">Chi phí thực tế</div><strong id="statActual">0 ₫</strong><small>Ghi nhận sau chuyến đi</small></div>
+<div class="stat"><div class="label">Địa điểm trong kho</div><strong id="statPlaces">3</strong><small>Điểm đến & món ăn</small></div>
+<div class="stat"><div class="label">Phương án vé bay</div><strong id="statFlights">0</strong><small>So sánh các lựa chọn</small></div>
+</section>
+<nav class="tabs" aria-label="Các mục Travel Planner">
+<button class="tab active" data-tab="overview">Tổng quan</button><button class="tab" data-tab="flights">Vé máy bay</button><button class="tab" data-tab="knowledge">Knowledge Hub</button><button class="tab" data-tab="itinerary">Lịch trình</button><button class="tab" data-tab="budget">Ngân sách</button><button class="tab" data-tab="backup">Backup plans</button>
+</nav>
+<section id="overview" class="view">
+<div class="two">
+<div class="panel"><h2>Thiết lập chuyến đi</h2><p class="sub">Các trường này là cấu hình cho chuyến hiện tại. Dữ liệu prototype lưu trong trình duyệt trên thiết bị đang dùng.</p>
+<div class="grid">
+<div class="field"><label>Tên chuyến đi</label><input id="tripName" value="Đà Nẵng – Huế – Hội An"></div>
+<div class="field"><label>Ngày bắt đầu</label><input id="startDate" type="date"></div>
+<div class="field"><label>Ngày kết thúc</label><input id="endDate" type="date"></div>
+<div class="field"><label>Số người</label><input id="travelers" type="number" min="1" value="4"></div>
+<div class="field"><label>Ngân sách mục tiêu (₫)</label><input id="targetBudget" type="number" min="0" value="12000000"></div>
+<div class="field"><label>Ưu tiên</label><select id="priority"><option value="balanced">Cân bằng giá và trải nghiệm</option><option value="cheap">Tiết kiệm tối đa</option><option value="comfort">Thoải mái, phù hợp trẻ nhỏ</option></select></div>
+</div><div class="actions"><button class="btn" id="saveTrip">Lưu thiết lập</button><button class="btn secondary" id="exportData">Xuất dữ liệu JSON</button><button class="btn secondary" id="importBtn">Nhập JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+</div>
+<div class="panel"><h2>Nguyên tắc tối ưu</h2><p class="sub">Prototype hỗ trợ tổ chức dữ liệu và tính toán cơ bản; chưa tự lấy giá hoặc xác minh dữ liệu từ website.</p>
+<div class="place"><span class="badge green">Ưu tiên 1</span><h3>Chốt phương án bay</h3><p>So sánh tổng giá cả nhóm, giờ bay, hành lý và sân bay đến/về. Giá thấp nhất không phải lúc nào cũng là phương án tốt nhất.</p></div>
+<div class="place" style="margin-top:10px"><span class="badge">Ưu tiên 2</span><h3>Gom điểm theo khu vực</h3><p>Giảm thời gian quay đầu giữa Huế, Đà Nẵng và Hội An. Xác nhận giờ mở cửa và thời gian di chuyển trước khi chốt.</p></div>
+<div class="place" style="margin-top:10px"><span class="badge amber">Cần xác minh</span><h3>Giá và review</h3><p>Luôn lưu nguồn, ngày kiểm tra và trạng thái xác minh để tránh dùng thông tin cũ.</p></div>
+</div></div>
+<div class="panel"><h2>Tổng quan lịch trình</h2><p class="sub">Khung phân bổ ban đầu để bạn bắt đầu nhập địa điểm. Đây không phải lịch trình đã xác minh.</p>
+<div class="cards">
+<div class="place"><span class="badge">Ngày 1</span><h3>Đến Huế</h3><p>Nhận phòng / gửi hành lý · chọn 1–2 điểm gần nhau · ăn món Huế.</p></div>
+<div class="place"><span class="badge">Ngày 2</span><h3>Huế → Đà Nẵng</h3><p>Ưu tiên tàu di sản nếu khớp giờ; dành khoảng đệm cho ga tàu và hành lý.</p></div>
+<div class="place"><span class="badge">Ngày 3</span><h3>Đà Nẵng</h3><p>Gom điểm theo khu vực, xen kẽ hoạt động trong nhà và ngoài trời.</p></div>
+<div class="place"><span class="badge">Ngày 4</span><h3>Hội An</h3><p>Ưu tiên phố cổ vào chiều tối; có backup trong nhà nếu mưa hoặc quá đông.</p></div>
+<div class="place"><span class="badge">Ngày 5</span><h3>Trả phòng & bay về</h3><p>Chọn hoạt động gần sân bay hoặc nơi lưu trú, không đặt lịch quá sát giờ bay.</p></div>
+<div class="place"><span class="badge amber">Chưa chốt</span><h3>Điểm đến / về</h3><p>Ngày bay và chiều đi/về sẽ quyết định thứ tự tối ưu cuối cùng.</p></div>
+</div></div>
+</section>
+<section id="flights" class="view hidden">
+<div class="panel"><h2>Flight comparison</h2><p class="sub">Nhập giá kiểm tra từ hãng bay hoặc website đặt vé. Tổng giá = giá cơ bản cả nhóm + phí hành lý/ghế/phí khác.</p>
+<div class="tablewrap"><table><thead><tr><th>Hãng</th><th>Chặng đi</th><th>Ngày đi</th><th>Chặng về</th><th>Ngày về</th><th>Giá cơ bản cả nhóm</th><th>Phí khác</th><th>Tổng giá</th><th>Giờ bay / ghi chú</th><th>Nguồn</th><th></th></tr></thead><tbody id="flightRows"></tbody></table></div>
+<div class="actions"><button class="btn" id="addFlight">+ Thêm phương án</button></div><div class="notice">Giá hiển thị do bạn nhập, không phải báo giá trực tiếp. Trước khi đặt, mở link nguồn và xác nhận lại giá cuối cùng, hành lý, điều kiện trẻ em và chính sách đổi vé.</div>
+</div></section>
+<section id="knowledge" class="view hidden">
+<div class="panel"><h2>Knowledge Hub</h2><p class="sub">Mỗi mục nên có nguồn, ngày kiểm tra, khu vực và trạng thái xác minh. Dán URL review để lưu dấu nguồn tham khảo.</p>
+<div class="grid">
+<div class="field"><label>Tên địa điểm / món ăn</label><input id="pName" placeholder="VD: Bún bò Huế..."></div>
+<div class="field"><label>Loại</label><select id="pType"><option>Tham quan</option><option>Ăn uống</option><option>Cafe</option><option>Khách sạn</option><option>Di chuyển</option><option>Khác</option></select></div>
+<div class="field"><label>Khu vực</label><select id="pArea"><option>Huế</option><option>Đà Nẵng</option><option>Hội An</option><option>Trên đường di chuyển</option></select></div>
+<div class="field"><label>Giá dự kiến / người (₫)</label><input id="pPrice" type="number" min="0" placeholder="0"></div>
+<div class="field"><label>Thời lượng (phút)</label><input id="pDuration" type="number" min="0" placeholder="60"></div>
+<div class="field"><label>Ưu tiên</label><select id="pPriority"><option>Must-go</option><option>Nên đi</option><option>Có thể bỏ</option></select></div>
+<div class="field"><label>Giờ mở cửa / điều kiện</label><input id="pHours" placeholder="Cần xác minh"></div>
+<div class="field"><label>Link review / nguồn</label><input id="pSource" placeholder="https://..."></div>
+<div class="field"><label>Trạng thái xác minh</label><select id="pVerified"><option>Chưa kiểm tra</option><option>Đã kiểm tra</option><option>Cần xác nhận lại</option></select></div>
+<div class="field" style="grid-column:1/-1"><label>Ghi chú / điều bạn muốn trải nghiệm</label><textarea id="pNotes" placeholder="Món nên gọi, review nào đáng tin, lưu ý cho trẻ nhỏ..."></textarea></div>
+</div><div class="actions"><button class="btn" id="addPlace">Lưu vào knowledge base</button></div></div>
+<div class="panel"><h2>Kho đã lưu</h2><div class="tablewrap"><table><thead><tr><th>Tên</th><th>Loại</th><th>Khu vực</th><th>Giá/người</th><th>Thời lượng</th><th>Ưu tiên</th><th>Trạng thái</th><th>Nguồn</th><th></th></tr></thead><tbody id="placeRows"></tbody></table></div></div>
+</section>
+<section id="itinerary" class="view hidden">
+<div class="panel"><h2>Lịch trình theo giờ</h2><p class="sub">Nhập thời gian và chi phí. Khi phát triển bản production, hệ thống sẽ kiểm tra giờ hoạt động, khoảng đệm và xung đột lịch.</p>
+<div class="grid">
+<div class="field"><label>Ngày</label><select id="iDay"><option>Ngày 1</option><option>Ngày 2</option><option>Ngày 3</option><option>Ngày 4</option><option>Ngày 5</option></select></div>
+<div class="field"><label>Hoạt động / địa điểm</label><input id="iName" placeholder="Tên điểm đến"></div>
+<div class="field"><label>Khu vực</label><select id="iArea"><option>Huế</option><option>Đà Nẵng</option><option>Hội An</option><option>Di chuyển</option></select></div>
+<div class="field"><label>Bắt đầu</label><input id="iStart" type="time" value="09:00"></div>
+<div class="field"><label>Kết thúc</label><input id="iEnd" type="time" value="10:00"></div>
+<div class="field"><label>Chi phí cả nhóm (₫)</label><input id="iCost" type="number" min="0" value="0"></div>
+<div class="field"><label>Backup chính</label><input id="iBackup" placeholder="Tên điểm thay thế"></div>
+<div class="field"><label>Link bản đồ / nguồn</label><input id="iSource" placeholder="https://..."></div>
+<div class="field"><label>Ghi chú</label><input id="iNotes" placeholder="Giờ mở cửa, thời gian đệm..."></div>
+</div><div class="actions"><button class="btn" id="addItinerary">+ Thêm hoạt động</button></div></div>
+<div class="panel"><h2>Các hoạt động đã xếp</h2><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Giờ</th><th>Hoạt động</th><th>Khu vực</th><th>Chi phí</th><th>Backup</th><th>Ghi chú</th><th></th></tr></thead><tbody id="itineraryRows"></tbody></table></div></div>
+</section>
+<section id="budget" class="view hidden">
+<div class="panel"><h2>Budget tracker</h2><p class="sub">Tách chi phí dự kiến và thực tế. Nhập tổng chi phí cả nhóm để tránh nhầm giá mỗi người với tổng đoàn.</p>
+<div class="grid">
+<div class="field"><label>Nhóm chi phí</label><select id="bCategory"><option>Vé máy bay</option><option>Khách sạn</option><option>Ăn uống</option><option>Vé tham quan</option><option>Di chuyển</option><option>Phát sinh</option><option>Mua sắm</option><option>Khác</option></select></div>
+<div class="field"><label>Hạng mục</label><input id="bName" placeholder="VD: Khách sạn 2 đêm"></div>
+<div class="field"><label>Số lượng</label><input id="bQty" type="number" min="0" value="1"></div>
+<div class="field"><label>Đơn giá dự kiến (₫)</label><input id="bUnit" type="number" min="0" value="0"></div>
+<div class="field"><label>Thực tế tổng (₫)</label><input id="bActual" type="number" min="0" value="0"></div>
+<div class="field"><label>Ghi chú / nguồn</label><input id="bNotes" placeholder="Link, ngày kiểm tra..."></div>
+</div><div class="actions"><button class="btn" id="addBudget">+ Thêm khoản chi</button></div></div>
+<div class="panel"><h2>Các khoản chi</h2><div class="tablewrap"><table><thead><tr><th>Nhóm</th><th>Hạng mục</th><th>Số lượng</th><th>Đơn giá</th><th>Dự kiến</th><th>Thực tế</th><th>Chênh lệch</th><th>Ghi chú</th><th></th></tr></thead><tbody id="budgetRows"></tbody></table></div><div class="notice" id="budgetNotice">Nhập ngân sách và chi phí để xem trạng thái.</div></div>
+</section>
+<section id="backup" class="view hidden">
+<div class="panel"><h2>Backup plans</h2><p class="sub">Mỗi hoạt động quan trọng nên có 2–3 lựa chọn tương đồng về khu vực, trải nghiệm, thời lượng và giá.</p>
+<div class="grid">
+<div class="field"><label>Hoạt động gốc</label><input id="bkMain" placeholder="VD: Tham quan ngoài trời"></div>
+<div class="field"><label>Backup 1</label><input id="bk1" placeholder="Lựa chọn gần nhất"></div>
+<div class="field"><label>Backup 2</label><input id="bk2" placeholder="Lựa chọn thứ hai"></div>
+<div class="field"><label>Backup 3</label><input id="bk3" placeholder="Lựa chọn thứ ba"></div>
+<div class="field"><label>Khu vực</label><select id="bkArea"><option>Huế</option><option>Đà Nẵng</option><option>Hội An</option><option>Trên đường di chuyển</option></select></div>
+<div class="field"><label>Điều kiện kích hoạt</label><select id="bkTrigger"><option>Mưa / thời tiết xấu</option><option>Đóng cửa / hết vé</option><option>Quá đông</option><option>Vượt ngân sách</option><option>Mệt / cần nghỉ</option><option>Thay đổi giờ bay</option></select></div>
+<div class="field" style="grid-column:1/-1"><label>Lý do tương đồng / ghi chú</label><textarea id="bkNotes" placeholder="Cùng khu vực, chi phí tương đương, trong nhà..."></textarea></div>
+</div><div class="actions"><button class="btn" id="addBackup">+ Lưu phương án dự phòng</button></div></div>
+<div class="panel"><h2>Danh sách dự phòng</h2><div class="tablewrap"><table><thead><tr><th>Hoạt động gốc</th><th>Backup 1</th><th>Backup 2</th><th>Backup 3</th><th>Khu vực</th><th>Khi nào dùng</th><th>Ghi chú</th><th></th></tr></thead><tbody id="backupRows"></tbody></table></div></div>
+</section>
+<div class="footer">Travel Planner Mobile · Dữ liệu hiện lưu trên thiết bị này. Chưa có đồng bộ đám mây, tài khoản gia đình hoặc giá vé trực tiếp.</div>
+<nav class="mobile-nav" aria-label="Điều hướng nhanh"><button class="mobile-tab active" data-tab="overview"><span>⌂</span>Tổng quan</button><button class="mobile-tab" data-tab="itinerary"><span>☷</span>Lịch trình</button><button class="mobile-tab" data-tab="knowledge"><span>⌖</span>Địa điểm</button><button class="mobile-tab" data-tab="budget"><span>₫</span>Chi phí</button><button class="mobile-tab" data-tab="backup"><span>↻</span>Dự phòng</button></nav>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const KEY='travelPlannerPrototypeV1';
+let state={trip:{},flights:[],places:[
+{name:'Đại Nội Huế',type:'Tham quan',area:'Huế',price:0,duration:120,priority:'Must-go',hours:'Cần xác minh',source:'',verified:'Chưa kiểm tra',notes:'Kiểm tra giờ mở cửa, giá vé và thời tiết.'},
+{name:'Ẩm thực Huế',type:'Ăn uống',area:'Huế',price:0,duration:60,priority:'Nên đi',hours:'Theo từng quán',source:'',verified:'Chưa kiểm tra',notes:'Thêm tên quán cụ thể và link review.'},
+{name:'Phố cổ Hội An',type:'Tham quan',area:'Hội An',price:0,duration:150,priority:'Must-go',hours:'Cần xác minh',source:'',verified:'Chưa kiểm tra',notes:'Kiểm tra vé tham quan, thời tiết và lượng khách.'}
+],itinerary:[],budget:[],backups:[]};
+const TRAVEL_CONFIG=window.TRAVEL_CONFIG||{};
+const VIEW_ONLY=new URLSearchParams(location.search).get('mode')==='view'||/iPhone|iPad|iPod/i.test(navigator.userAgent);
+let cloudClient=null,cloudUser=null,cloudTrip=null,cloudIsOwner=false,cloudTimer=null,cloudChannel=null,cloudReady=false;
+function setCloudStatus(msg){const el=$('cloudStatus');if(el)el.textContent=msg}
+function setMode(){document.body.classList.toggle('viewer',VIEW_ONLY);$('modeLabel').textContent=VIEW_ONLY?'iPhone · Chế độ chỉ xem':'Mac · Chế độ quản trị';$('installHelp').classList.toggle('hidden',!VIEW_ONLY);}
+function scheduleCloudSave(){if(!cloudClient||!cloudUser||!cloudIsOwner||!cloudReady||VIEW_ONLY)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(saveCloud,900)}
+async function saveCloud(){if(!cloudClient||!cloudUser||!cloudIsOwner||!cloudReady||!navigator.onLine)return;setCloudStatus('Đang đồng bộ dữ liệu lên Supabase…');try{const payload={owner_id:cloudUser.id,title:state.trip?.name||'Travel Planner',data:state,updated_at:new Date().toISOString()};let q=cloudClient.from('travel_trips').upsert(payload,{onConflict:'owner_id'}).select().single();const {data,error}=await q;if(error)throw error;cloudTrip=data;setCloudStatus('Đã đồng bộ lúc '+new Date(data.updated_at).toLocaleString('vi-VN')+'. Dữ liệu cũng được lưu trên thiết bị để xem ngoại tuyến.')}catch(e){setCloudStatus('Chưa đồng bộ được: '+(e.message||'lỗi kết nối')+'. Bản trên thiết bị vẫn được giữ lại.')}}
+async function loadCloud(){if(!cloudClient||!cloudUser)return;setCloudStatus('Đang tải dữ liệu chuyến đi…');try{const {data,error}=await cloudClient.from('travel_trips').select('*').order('updated_at',{ascending:false}).limit(1).maybeSingle();if(error)throw error;if(!data){cloudIsOwner=true;cloudReady=true;await saveCloud();return}cloudTrip=data;cloudIsOwner=data.owner_id===cloudUser.id;if(data.data&&typeof data.data==='object'){state={...state,...data.data};localStorage.setItem(KEY,JSON.stringify(state));render()}cloudReady=true;if(cloudIsOwner){setCloudStatus('Đã kết nối với chuyến đi chung. Chỉnh sửa trên Mac sẽ tự đồng bộ.')}else{setCloudStatus('Đang ở chế độ chỉ xem. Lịch trình đã tải về thiết bị; lần mở sau có thể xem bản đã lưu khi mất mạng.')}if(cloudChannel)await cloudClient.removeChannel(cloudChannel);cloudChannel=cloudClient.channel('travel-trip-live').on('postgres_changes',{event:'UPDATE',schema:'public',table:'travel_trips',filter:'id=eq.'+data.id},payload=>{if(cloudIsOwner)return;const d=payload.new;if(d&&d.data){cloudTrip=d;state={...state,...d.data};localStorage.setItem(KEY,JSON.stringify(state));render();setCloudStatus('Đã nhận bản cập nhật mới lúc '+new Date(d.updated_at).toLocaleTimeString('vi-VN')+'.')}}).subscribe();if(!cloudIsOwner&& !VIEW_ONLY){setCloudStatus('Tài khoản này chỉ được cấp quyền xem chuyến đi.')}}catch(e){cloudReady=false;setCloudStatus('Không tải được dữ liệu trực tuyến: '+(e.message||'hãy kiểm tra cấu hình Supabase/RLS')+'. Đang giữ bản lưu cục bộ.')}}
+async function initCloud(){setMode();if(!TRAVEL_CONFIG.SUPABASE_URL||!TRAVEL_CONFIG.SUPABASE_ANON_KEY||TRAVEL_CONFIG.SUPABASE_URL.includes('YOUR_')){setCloudStatus('Chưa cấu hình Supabase. Ứng dụng đang dùng dữ liệu cục bộ; cần hoàn tất cấu hình để đồng bộ Mac/iPhone.');$('cloudLogin').classList.remove('hidden');return}if(!window.supabase?.createClient){setCloudStatus('Không tải được thư viện đồng bộ. Có thể tiếp tục xem dữ liệu đã lưu trên thiết bị.');return}cloudClient=window.supabase.createClient(TRAVEL_CONFIG.SUPABASE_URL,TRAVEL_CONFIG.SUPABASE_ANON_KEY);const {data:{session}}=await cloudClient.auth.getSession();if(session){cloudUser=session.user;await handleSignedIn()}else{ $('cloudLogin').classList.remove('hidden');setCloudStatus('Nhập email để nhận link đăng nhập. Dùng tài khoản quản trị trên Mac; iPhone nên dùng email được cấp quyền xem riêng.')}cloudClient.auth.onAuthStateChange(async(event,session)=>{if(session){cloudUser=session.user;setTimeout(handleSignedIn,0)}else{cloudUser=null;cloudTrip=null;cloudReady=false;$('cloudLogin').classList.remove('hidden');$('cloudActions').classList.add('hidden');setCloudStatus('Đã đăng xuất. Bản dữ liệu ngoại tuyến vẫn còn trên thiết bị này.')}})}
+async function handleSignedIn(){if(!cloudUser)return;$('cloudLogin').classList.add('hidden');$('cloudActions').classList.remove('hidden');$('signedInEmail').textContent=cloudUser.email||'Đã đăng nhập';await loadCloud()}
+function money(n){return (Number(n)||0).toLocaleString('vi-VN')+' ₫'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function persist(options={}){localStorage.setItem(KEY,JSON.stringify(state));render();if(options.sync!==false)scheduleCloudSave()}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)state={...state,...s}}catch(e){};render()}
+function removeItem(type,i){state[type].splice(i,1);persist()}
+function render(){
+$('statBudget').textContent=money(state.budget.reduce((a,x)=>a+(+x.qty||0)*(+x.unit||0),0)+state.flights.reduce((a,x)=>a+(+x.base||0)+(+x.fees||0),0));
+$('statActual').textContent=money(state.budget.reduce((a,x)=>a+(+x.actual||0),0));
+$('statPlaces').textContent=state.places.length;$('statFlights').textContent=state.flights.length;
+$('flightRows').innerHTML=state.flights.map((x,i)=>`<tr><td>${esc(x.airline)}</td><td>${esc(x.out)}</td><td>${esc(x.dateOut)}</td><td>${esc(x.back)}</td><td>${esc(x.dateBack)}</td><td>${money(x.base)}</td><td>${money(x.fees)}</td><td><b>${money((+x.base||0)+(+x.fees||0))}</b></td><td>${esc(x.notes)}</td><td>${x.source?`<a href="${esc(x.source)}" target="_blank" rel="noopener">Mở nguồn</a>`:'—'}</td><td><button class="btn danger mini" onclick="removeItem('flights',${i})">Xóa</button></td></tr>`).join('');
+$('placeRows').innerHTML=state.places.map((x,i)=>`<tr><td><b>${esc(x.name)}</b><div class="muted">${esc(x.notes)}</div></td><td>${esc(x.type)}</td><td>${esc(x.area)}</td><td>${money(x.price)}</td><td>${esc(x.duration)} phút</td><td>${esc(x.priority)}</td><td><span class="badge ${x.verified==='Đã kiểm tra'?'green':'amber'}">${esc(x.verified)}</span><div class="muted">${esc(x.hours)}</div></td><td>${x.source?`<a href="${esc(x.source)}" target="_blank" rel="noopener">Mở nguồn</a>`:'—'}</td><td><button class="btn danger mini" onclick="removeItem('places',${i})">Xóa</button></td></tr>`).join('');
+$('itineraryRows').innerHTML=state.itinerary.map((x,i)=>`<tr><td>${esc(x.day)}</td><td>${esc(x.start)}–${esc(x.end)}</td><td><b>${esc(x.name)}</b><div class="muted">${x.source?`<a href="${esc(x.source)}" target="_blank" rel="noopener">Nguồn / bản đồ</a>`:''}</div></td><td>${esc(x.area)}</td><td>${money(x.cost)}</td><td>${esc(x.backup||'Chưa có')}</td><td>${esc(x.notes)}</td><td><button class="btn danger mini" onclick="removeItem('itinerary',${i})">Xóa</button></td></tr>`).join('');
+$('budgetRows').innerHTML=state.budget.map((x,i)=>{let expected=(+x.qty||0)*(+x.unit||0),diff=expected-(+x.actual||0);return `<tr><td>${esc(x.category)}</td><td>${esc(x.name)}</td><td>${esc(x.qty)}</td><td>${money(x.unit)}</td><td>${money(expected)}</td><td>${money(x.actual)}</td><td>${money(diff)}</td><td>${esc(x.notes)}</td><td><button class="btn danger mini" onclick="removeItem('budget',${i})">Xóa</button></td></tr>`}).join('');
+$('backupRows').innerHTML=state.backups.map((x,i)=>`<tr><td>${esc(x.main)}</td><td>${esc(x.b1||'—')}</td><td>${esc(x.b2||'—')}</td><td>${esc(x.b3||'—')}</td><td>${esc(x.area)}</td><td>${esc(x.trigger)}</td><td>${esc(x.notes)}</td><td><button class="btn danger mini" onclick="removeItem('backups',${i})">Xóa</button></td></tr>`).join('');
+const expected=state.budget.reduce((a,x)=>a+(+x.qty||0)*(+x.unit||0),0)+state.flights.reduce((a,x)=>a+(+x.base||0)+(+x.fees||0),0),target=+$('targetBudget').value||+$('targetBudget').getAttribute('value')||0;
+$('budgetNotice').textContent=target?`Ngân sách mục tiêu: ${money(target)} · Tổng dự kiến: ${money(expected)} · ${expected>target?'Đang vượt '+money(expected-target):'Còn '+money(target-expected)}. Vé bay và khoản chi không nên nhập trùng ở cả hai nơi.`:`Tổng dự kiến hiện tại: ${money(expected)}. Hãy đặt ngân sách mục tiêu tại Tổng quan.`;
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));document.querySelectorAll('.mobile-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===b.dataset.tab));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==b.dataset.tab));}));
+$('saveTrip').onclick=()=>{state.trip={name:$('tripName').value,startDate:$('startDate').value,endDate:$('endDate').value,travelers:$('travelers').value,targetBudget:$('targetBudget').value,priority:$('priority').value};persist();alert('Đã lưu thiết lập trên trình duyệt này.')};
+$('addFlight').onclick=()=>{let airline=prompt('Tên hãng bay:');if(!airline)return;let out=prompt('Chặng đi (VD: SGN → HUI):','SGN → HUI')||'',dateOut=prompt('Ngày đi (YYYY-MM-DD):','')||'',back=prompt('Chặng về (VD: DAD → SGN):','DAD → SGN')||'',dateBack=prompt('Ngày về (YYYY-MM-DD):','')||'',base=prompt('Giá cơ bản cả nhóm (VND):','0')||'0',fees=prompt('Hành lý/ghế/phí khác (VND):','0')||'0',notes=prompt('Giờ bay / đánh đổi:','')||'',source=prompt('Link nguồn (nếu có):','')||'';state.flights.push({airline,out,dateOut,back,dateBack,base,fees,notes,source});persist()};
+$('addPlace').onclick=()=>{let name=$('pName').value.trim();if(!name){alert('Nhập tên địa điểm hoặc món ăn.');return}state.places.push({name,type:$('pType').value,area:$('pArea').value,price:$('pPrice').value||0,duration:$('pDuration').value||0,priority:$('pPriority').value,hours:$('pHours').value,source:$('pSource').value,verified:$('pVerified').value,notes:$('pNotes').value,checkedAt:new Date().toISOString().slice(0,10)});['pName','pPrice','pDuration','pHours','pSource','pNotes'].forEach(id=>$(id).value='');persist()};
+$('addItinerary').onclick=()=>{let name=$('iName').value.trim();if(!name){alert('Nhập tên hoạt động.');return}state.itinerary.push({day:$('iDay').value,name,area:$('iArea').value,start:$('iStart').value,end:$('iEnd').value,cost:$('iCost').value||0,backup:$('iBackup').value,source:$('iSource').value,notes:$('iNotes').value});$('iName').value='';$('iBackup').value='';$('iSource').value='';$('iNotes').value='';persist()};
+$('addBudget').onclick=()=>{let name=$('bName').value.trim();if(!name){alert('Nhập tên hạng mục chi phí.');return}state.budget.push({category:$('bCategory').value,name,qty:$('bQty').value||1,unit:$('bUnit').value||0,actual:$('bActual').value||0,notes:$('bNotes').value});['bName','bNotes'].forEach(id=>$(id).value='');persist()};
+$('addBackup').onclick=()=>{let main=$('bkMain').value.trim();if(!main){alert('Nhập hoạt động gốc.');return}state.backups.push({main,b1:$('bk1').value,b2:$('bk2').value,b3:$('bk3').value,area:$('bkArea').value,trigger:$('bkTrigger').value,notes:$('bkNotes').value});['bkMain','bk1','bk2','bk3','bkNotes'].forEach(id=>$(id).value='');persist()};
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='travel-planner-data.json';a.click();URL.revokeObjectURL(a.href)};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let s=JSON.parse(await f.text());if(!s||typeof s!=='object')throw Error();state={...state,...s};persist();alert('Đã nhập dữ liệu.')}catch(err){alert('File JSON không hợp lệ.')}e.target.value=''};
+$('targetBudget').addEventListener('input',render);
+
+function activateTab(tab){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));document.querySelectorAll('.mobile-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==tab));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.mobile-tab').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.tab)));
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.mobile-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===b.dataset.tab));}));
+$('installHelp').onclick=()=>{const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);const isAndroid=/android/i.test(navigator.userAgent);let msg=isIOS?'Trên iPhone: mở website bằng Safari → nhấn nút Chia sẻ → chọn “Thêm vào MH chính” (Add to Home Screen) → nhấn Thêm.':isAndroid?'Trên Android: mở website bằng Chrome → nhấn menu ⋮ → chọn “Thêm vào màn hình chính” hoặc “Cài đặt ứng dụng”.':'Mở website trên điện thoại bằng Safari (iPhone) hoặc Chrome (Android), sau đó chọn “Thêm vào màn hình chính”.';alert(msg+'\n\nLưu ý: cần xuất bản website bằng đường link HTTPS trước. File mở trực tiếp trên máy chưa cài đặt như app và dữ liệu chưa đồng bộ giữa thiết bị.');};
+$('loginBtn').onclick=async()=>{if(!cloudClient){alert('Cần cấu hình SUPABASE_URL và SUPABASE_ANON_KEY trong config.js trước.');return}const email=$('loginEmail').value.trim();if(!email){alert('Nhập email trước.');return}const {error}=await cloudClient.auth.signInWithOtp({email,options:{emailRedirectTo:location.href.split('#')[0]}});if(error)alert('Không gửi được link đăng nhập: '+error.message);else setCloudStatus('Đã gửi link đăng nhập đến '+email+'. Mở email trên thiết bị này để hoàn tất.')};
+$('syncNow').onclick=()=>cloudIsOwner?saveCloud():loadCloud();
+$('logoutBtn').onclick=async()=>{if(cloudClient)await cloudClient.auth.signOut()};
+window.addEventListener('online',()=>{if(cloudIsOwner)saveCloud();else setCloudStatus('Có mạng. Có thể tải bản cập nhật mới.')});
+window.addEventListener('offline',()=>setCloudStatus('Đang ngoại tuyến. Có thể xem dữ liệu đã lưu; đồng bộ sẽ tiếp tục khi có mạng.'));
+load();setMode();initCloud();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('Service worker registration failed', err))); }
+</script>
+</body></html>
